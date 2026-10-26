@@ -32,3 +32,10 @@ The trade-off: the input is a raw minute count, not an IANA zone name. If you ne
 - **`totalMinutes`** — a finite integer. Positive is east of UTC, negative is west.
 - **Returns** — the offset in ISO 8601 extended form.
 - **Throws** — `TypeError` if the input is not a finite integer.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
